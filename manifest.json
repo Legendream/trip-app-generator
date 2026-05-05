@@ -1,0 +1,19 @@
+{
+  "name": "旅遊 App 生成器",
+  "short_name": "旅遊生成器",
+  "description": "把行程變成專屬旅遊 App — 不需要寫程式",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8f8fc",
+  "theme_color": "#6366f1",
+  "orientation": "portrait",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='40' fill='%236366f1'/%3E%3Ctext y='130' x='96' text-anchor='middle' font-size='110'%3E✈️%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

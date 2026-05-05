@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅遊 App 生成器</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6366f1;
+      --purple-2: #818cf8;
+      --purple-bg: #eef2ff;
+      --text: #1e1b4b;
+      --text-2: #4338ca;
+      --text-3: #6b7280;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f8f8fc;
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--purple), var(--purple-2));
+      color: #fff;
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: clamp(26px, 6vw, 42px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    header p {
+      font-size: clamp(14px, 3vw, 17px);
+      opacity: .88;
+      max-width: 520px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: var(--purple);
+      font-weight: 800;
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0,0,0,.15);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .header-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,.2); }
+
+    /* ── Features ── */
+    .features {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 52px 24px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .feat-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .feat-icon { font-size: 28px; margin-bottom: 10px; }
+    .feat-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .feat-desc { font-size: 13px; color: var(--text-3); line-height: 1.6; }
+
+    /* ── Demo section ── */
+    .demo-section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 52px 24px;
+    }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--text-2);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+    }
+    .demo-section h2 {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+    .demo-section p {
+      font-size: 14px;
+      color: var(--text-3);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .demo-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      display: flex;
+      align-items: stretch;
+    }
+    .demo-card-banner {
+      background: linear-gradient(135deg, #c94b72, #e06a8a);
+      width: 8px;
+      flex-shrink: 0;
+    }
+    .demo-card-body {
+      padding: 24px 28px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .demo-trip-title { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+    .demo-trip-meta { font-size: 13px; color: var(--text-3); }
+    .demo-trip-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .demo-tag {
+      background: #fff0f3;
+      color: #c94b72;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+    .btn-demo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-bg);
+      color: var(--purple);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background .15s;
+    }
+    .btn-demo:hover { background: #e0e7ff; }
+
+    /* ── How it works ── */
+    .how-section {
+      background: #fff;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .how-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    .how-inner h2 { font-size: 22px; font-weight: 900; margin-bottom: 28px; }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 24px;
+    }
+    .step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--purple); color: #fff;
+      font-size: 13px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text { font-size: 13px; line-height: 1.6; color: var(--text-3); }
+    .step-text strong { color: var(--text); display: block; margin-bottom: 2px; font-size: 14px; }
+
+    /* ── Footer ── */
+    footer {
+      margin-top: auto;
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-3);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-badge">✈️ 旅遊 App 生成器</div>
+  <h1>把行程變成<br>專屬旅遊 App</h1>
+  <p>不需要寫程式。貼上行程文字或手動填寫，一鍵產出可安裝到手機的旅遊 App，部署到網路後旅伴即可使用。</p>
+  <a href="./generator/" class="header-cta">✨ 開始建立我的旅遊 App →</a>
+</header>
+
+<section class="features">
+  <div class="feat-card">
+    <div class="feat-icon">🤖</div>
+    <div class="feat-title">AI 自動解析行程</div>
+    <div class="feat-desc">貼上任何格式的行程文字，AI 自動整理成結構化資料。支援 Google Doc、旅行社行程表、LINE 訊息。</div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">📱</div>
+    <div class="feat-title">可安裝到手機</div>
+    <div class="feat-desc">產出的 App 支援 PWA，旅伴可以加入書籤或安裝到主畫面，像原生 App 一樣使用。</div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🔥</div>
+    <div class="feat-title">即時群組同步</div>
+    <div class="feat-desc">整合 Firebase，多位旅伴同步看到集合倒數計時、群組訊息、共同費用紀錄。</div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">☁️</div>
+    <div class="feat-title">自動天氣預報</div>
+    <div class="feat-desc">部署後自動顯示旅程期間各城市天氣，不需要任何 API Key。</div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🔒</div>
+    <div class="feat-title">PIN 碼保護</div>
+    <div class="feat-desc">設定 4 位數 PIN 碼，確保只有旅伴才能開啟 App 查看行程內容。</div>
+  </div>
+  <div class="feat-card">
+    <div class="feat-icon">🎨</div>
+    <div class="feat-title">5 種主題色彩</div>
+    <div class="feat-desc">從預設色票選擇，或自訂主題色，讓每次旅行都有獨特的視覺風格。</div>
+  </div>
+</section>
+
+<section class="demo-section">
+  <div class="section-label">Demo</div>
+  <h2>看看生成出來的 App 長什麼樣子</h2>
+  <p>以下是用生成器建立的東北賞櫻之旅 App，包含完整行程、天氣預報、費用分攤等功能。</p>
+  <div class="demo-card">
+    <div class="demo-card-banner"></div>
+    <div class="demo-card-body">
+      <div>
+        <div class="demo-trip-title">🌸 東北賞櫻之旅 2026</div>
+        <div class="demo-trip-meta">2026年4月15日 – 4月22日・8天7夜・6人同行</div>
+        <div class="demo-trip-tags">
+          <span class="demo-tag">仙台</span>
+          <span class="demo-tag">平泉</span>
+          <span class="demo-tag">青森</span>
+          <span class="demo-tag">弘前</span>
+          <span class="demo-tag">盛岡</span>
+        </div>
+      </div>
+      <a href="./trip-app-v2/" class="btn-demo">查看 Demo App →</a>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div class="how-inner">
+    <h2>三步驟建立專屬旅遊 App</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>填入行程資料</strong>
+          貼上行程文字讓 AI 自動解析，或手動填寫每天的活動與住宿
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>自訂外觀與設定</strong>
+          設定 PIN 碼保護、選擇主題色彩、加入 Firebase 群組同步
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>下載並部署</strong>
+          下載 index.html，上傳到 Netlify（免費），把網址傳給旅伴即可
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  旅遊 App 生成器 · <a href="./generator/" style="color:var(--purple);">開始建立</a>
+</footer>
+
+</body>
+</html>
